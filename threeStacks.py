@@ -6,11 +6,22 @@ class Stack:
     def push(self, item: any, stack_num: int) -> None:
         if stack_num > 3 and stack_num < 1:
             return
-        while self.__lastIndex % stack_num != 0:
-            self.__stack.append(0)
+
+        if self.__lastIndex > stack_num:
+            index = stack_num
+            while self.__stack[index] != None and index < len(self.__stack):
+                index += stack_num
+            if index < len(self.__stack):
+                self.__stack.insert(index, item)
+        elif self.__lastIndex % stack_num != 0:
+            while self.__lastIndex % stack_num != 0:
+                self.__stack.append(None)
+                self.__lastIndex += 1
+            self.__stack.append(item)
             self.__lastIndex += 1
-        self.__stack.append(item)
-        self.__lastIndex += 1
+        else:
+            self.__stack.append(item)
+            self.__lastIndex += 1
 
     def pop(self, stack_num: int) -> any:
         if self.__lastIndex % stack_num == 0:
