@@ -112,3 +112,17 @@ class LinkedList:
             currNode = currNode.getNext()
 
         return "[" + ", ".join(values) + "]"
+
+    def __eq__(self, value):
+        if (not isinstance(value, LinkedList) and
+            not isinstance(value, list)):
+            return False
+
+        values = []
+        currNode = self.__head
+
+        while currNode:
+            values.append(currNode.getValue())
+            currNode = currNode.getNext()
+
+        return values == value
