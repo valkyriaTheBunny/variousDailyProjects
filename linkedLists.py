@@ -3,16 +3,17 @@ from typing import Optional
 class Node:
     def __init__(self, val: any):
         self.__val = val
-        self.__next : Node = None
+        self.__next = None
 
     def getValue(self) -> any:
         return self.__val
 
-    def getNext(self) -> Node:
+    def getNext(self) -> Optional[Node]:
         return self.__next
 
     def setNext(self, val: any):
-        if isinstance(val, None):
+        if not val:
+            self.__next = None
             return
         if not isinstance(val, Node):
             newNode = Node(val)
@@ -21,9 +22,19 @@ class Node:
             self.__next = val
 
 class LinkedList:
-    def __init__(self):
-        self.__head : Node = None
-        self.__length = 0
+    def __init__(self, head = None):
+        if head:
+            self.__head = head
+            self.__length = 0
+
+            currNode = head
+            while currNode:
+                self.__length += 1
+                currNode = currNode.getNext()
+
+        else:
+            self.__head : Node = None
+            self.__length = 0
 
     def setHead(self, head: any) -> None:
         if not isinstance(head, Node):
@@ -83,23 +94,21 @@ class LinkedList:
         return self.__length
 
     def __str__(self) -> str:
-        bldr = "["
+        values = []
         currNode = self.__head
+
         while currNode:
-            bldr += str(currNode.getValue())
-            if currNode.getNext():
-                bldr += ", "
+            values.append(str(currNode.getValue()))
             currNode = currNode.getNext()
-        bldr += "]"
-        return bldr
+
+        return "[" + ", ".join(values) + "]"
 
     def __repr__(self) -> str:
-        bldr = "["
+        values = []
         currNode = self.__head
+
         while currNode:
-            bldr += str(currNode.getValue())
-            if currNode.getNext():
-                bldr += ", "
+            values.append(str(currNode.getValue()))
             currNode = currNode.getNext()
-        bldr += "]"
-        return bldr
+
+        return "[" + ", ".join(values) + "]"
