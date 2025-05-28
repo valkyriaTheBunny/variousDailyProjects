@@ -22,7 +22,7 @@ def test_is_palin():
     assert is_palin(678) == False
 
 def main():
-    is_palin(121)
+    print(is_palin(121))
 
 if __name__ == "__main__":
     main()
